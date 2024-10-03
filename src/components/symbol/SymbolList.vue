@@ -74,6 +74,7 @@ onMounted(() => {})
   align-items: flex-start;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: center;
 
   &-element {
     margin: 0.6rem;
