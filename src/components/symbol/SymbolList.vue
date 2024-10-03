@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, inject } from 'vue'
 import { LSSymbolsKey } from './definitions/CanvasSymbol.const'
 import SymbolDrawer from './SymbolDrawer.vue'
+import { I18nKeysDrawerABS } from '../../plugins/i18n/i18n.const'
+import { I18nKeys, I18nKeysAlert } from '../../plugins/i18n/i18n.definition'
 
+const i18n = inject('i18n')
 const props = defineProps<{
   reload: boolean
 }>()
@@ -31,7 +34,11 @@ function onSymbolAdd() {
 }
 
 function onSymbolClick(index: number) {
-  const confirmed = confirm('This action will delete symbol. Are you sure?')
+  deleteSymbol()
+}
+
+function deleteSymbol(index: number) {
+  const confirmed = confirm(i18n[I18nKeys.Alert][I18nKeysAlert.Delete])
 
   if (!confirmed) {
     return
@@ -43,9 +50,7 @@ function onSymbolClick(index: number) {
   updateSymbolsLS(userSymbols.value)
 }
 
-onMounted(() => {
-  console.log(userSymbols.value)
-})
+onMounted(() => {})
 </script>
 
 <template>
@@ -72,8 +77,6 @@ onMounted(() => {
 
   &-element {
     margin: 0.6rem;
-    &-drawer {
-    }
   }
 }
 </style>
