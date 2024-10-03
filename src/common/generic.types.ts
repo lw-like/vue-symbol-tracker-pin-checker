@@ -1,0 +1,1 @@
+type TKeyValue<T> = { [key: string]: T };
