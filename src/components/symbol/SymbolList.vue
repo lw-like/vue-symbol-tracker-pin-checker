@@ -34,7 +34,7 @@ function onSymbolAdd() {
 }
 
 function onSymbolClick(index: number) {
-  deleteSymbol()
+  deleteSymbol(index)
 }
 
 function deleteSymbol(index: number) {
