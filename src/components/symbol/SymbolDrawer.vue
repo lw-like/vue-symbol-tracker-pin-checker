@@ -3,15 +3,20 @@ import { ref, useTemplateRef, onMounted } from 'vue'
 import SymbolCell from './SymbolCell.vue'
 import SymbolRow from './SymbolRow.vue'
 import { CanvasSymbolDrawer } from './definitions/CanvasSymbolDrawer'
-import { LSSymbolsKey, ESymbolEvents } from './definitions/CanvasSymbol.const'
+import {
+  LSSymbolsKey,
+  ESymbolEvents,
+  DimensionsVector,
+  CANVAS_SIZE_SMALL,
+  CANVAS_SIZE_BIG
+} from './definitions/CanvasSymbol.const'
 
+const emit = defineEmits([ESymbolEvents.SymbolAdded, ESymbolEvents.SymbolExists])
 const props = defineProps<{
   isPreview?: boolean
   symbolJson?: string
   smaller?: boolean
 }>()
-
-const emit = defineEmits([ESymbolEvents.SymbolAdded, ESymbolEvents.SymbolExists])
 
 const canvasClassName = 'symbol__drawer'
 const canvasWrapperClassName = 'symbol__drawer-wrapper'
@@ -19,7 +24,7 @@ const symbolExists = ref(false)
 let drawer: CanvasSymbolDrawer
 
 const canvasElement = useTemplateRef<HTMLCanvasElement>('canvasDrawer')
-const size = props.smaller ? 90 : 390
+const size = props.smaller ? CANVAS_SIZE_SMALL : CANVAS_SIZE_BIG
 const width = size
 const height = size
 
@@ -66,9 +71,9 @@ function updateSymbolExists(value: boolean) {
 
 <template>
   <div :class="canvasWrapperClassName">
-    <SymbolRow v-for="(y, yi) in 3" :key="y">
+    <SymbolRow v-for="(y, yi) in DimensionsVector.length" :key="y">
       <SymbolCell
-        v-for="(x, xi) in 3"
+        v-for="(x, xi) in DimensionsVector.length"
         :key="x"
         :x
         :y
@@ -105,13 +110,13 @@ function updateSymbolExists(value: boolean) {
     left: 0;
     right: 0;
     bottom: 0;
-    width: 390px;
-    height: 390px;
+    width: v-bind(CANVAS_SIZE_BIG) px;
+    height: v-bind(CANVAS_SIZE_BIG) px;
     scale: 0.95;
 
     &--smaller {
-      width: 90px;
-      height: 90px;
+      width: v-bind(CANVAS_SIZE_SMALL) px;
+      height: v-bind(CANVAS_SIZE_SMALL) px;
     }
 
     &-wrapper {

@@ -5,3 +5,6 @@ export enum ESymbolEvents {
     SymbolExists = 'symbolExists',
     SymbolAdded = 'symbolAdded'
 }
+
+export const CANVAS_SIZE_BIG = 390;
+export const CANVAS_SIZE_SMALL = 90;

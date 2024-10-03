@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import {
+  CANVAS_SIZE_SMALL,
+  CANVAS_SIZE_BIG,
+  DimensionsVector
+} from './definitions/CanvasSymbol.const'
+
 defineProps<{
   x: number
   y: number
   smaller: boolean
 }>()
+
+const bigCanvasCellSize = `${CANVAS_SIZE_BIG / DimensionsVector.length}px`
+const smallCanvasCellSize = `${CANVAS_SIZE_SMALL / DimensionsVector.length}px`
 </script>
 
 <template>
@@ -15,14 +24,17 @@ defineProps<{
 <style scoped lang="scss">
 .symbol {
   &__cell {
-    width: 130px;
-    height: 130px;
+    width: v-bind(bigCanvasCellSize);
+    height: v-bind(bigCanvasCellSize);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     &--smaller {
+      width: v-bind(smallCanvasCellSize);
+      height: v-bind(smallCanvasCellSize);
+
       width: 30px;
       height: 30px;
 
