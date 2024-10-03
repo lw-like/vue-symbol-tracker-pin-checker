@@ -37,7 +37,7 @@ function onSymbolClick(index: number) {
   deleteSymbol()
 }
 
-function deleteSymbol() {
+function deleteSymbol(index: number) {
   const confirmed = confirm(i18n[I18nKeys.Alert][I18nKeysAlert.Delete])
 
   if (!confirmed) {
